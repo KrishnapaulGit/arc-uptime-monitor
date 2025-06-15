@@ -1,0 +1,7 @@
+services:
+  - type: worker
+    name: arc-uptime-monitor
+    env: java
+    buildCommand: ./render-build.sh && mvn clean install
+    startCommand: java -cp target/ARCTest-1.0-SNAPSHOT.jar com.arc2o.test.ArcAlert
+    autoDeploy: true

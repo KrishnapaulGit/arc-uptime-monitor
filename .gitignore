@@ -1,0 +1,10 @@
+# Java / Maven ignores
+target/
+*.class
+
+# IDE ignores
+.idea/
+*.iml
+
+# Secrets
+.env
