@@ -1,16 +1,11 @@
-# Use official Maven image to build the project
-FROM maven:3.8.6-openjdk-17-slim AS build
+# Stage 1: Build
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Use JDK for running the app
-FROM openjdk:17-slim
+# Stage 2: Run
+FROM openjdk:17-jdk-slim
 WORKDIR /app
-COPY --from=build /app/target/ARCTest-1.0-SNAPSHOT.jar app.jar
-
-# Copy any necessary assets
-COPY .env .
-
-# Start command
+COPY --from=build /app/target/*.jar app.jar
 CMD ["java", "-jar", "app.jar"]
