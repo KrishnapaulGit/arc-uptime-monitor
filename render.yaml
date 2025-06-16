@@ -1,7 +1,27 @@
 services:
   - type: worker
-    name: arc-uptime-monitor
-    env: java
-    buildCommand: ./render-build.sh && mvn clean install
-    startCommand: java -cp target/ARCTest-1.0-SNAPSHOT.jar com.arc2o.test.ArcAlert
+    name: arc-alert-worker
+    env: docker
+    dockerfilePath: ./Dockerfile
     autoDeploy: true
+    envVars:
+      - key: TWILIO_ACCOUNT_SID
+        value: your_twilio_sid
+      - key: TWILIO_AUTH_TOKEN
+        value: your_twilio_token
+      - key: GMAIL_USERNAME
+        value: your_gmail_username
+      - key: GMAIL_APP_PASSWORD
+        value: your_gmail_app_password
+      - key: TO_EMAIL
+        value: recipient_email
+      - key: LOGIN_URL
+        value: https://appx.arcfacilities.com/
+      - key: ARC_EMAIL
+        value: your_arc_email
+      - key: ARC_PASSWORD
+        value: your_arc_password
+      - key: TO_PHONE
+        value: phone_to_alert
+      - key: FROM_PHONE
+        value: your_twilio_phone
